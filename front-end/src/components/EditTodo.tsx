@@ -79,14 +79,14 @@ export const EditTodo: React.FC<EditTodoProps> = ({
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="mb-2">
+        <div className="flex flex-row gap-4 mb-2">
           <Label htmlFor="editCompleted">Completed:</Label>
           <Input
             type="checkbox"
             id="editCompleted"
             checked={completed}
             onChange={(e) => setCompleted(e.target.checked)}
-            className="mr-2 leading-tight"
+            className="mr-2 w-[10%] h-[100%] bg-white shadow-none"
           />
         </div>
         <Button

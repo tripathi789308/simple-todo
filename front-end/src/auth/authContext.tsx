@@ -12,9 +12,9 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "./snackbarContext";
 
 interface AuthContextType {
-  isLoggedIn: boolean;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
+  register: (username: string, password: string) => Promise<void>;
   loggedUserData: User | undefined;
 }
 
@@ -27,20 +27,25 @@ interface AuthProviderProps {
 export const AuthContextProvider: React.FC<AuthProviderProps> = ({
   children,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUserData, setLoggedUserData] = useState<User>();
   const navigate = useNavigate();
   const { postService } = apiService();
   const { showSnackbar } = useSnackbar();
 
+  const reset = () => {
+    setLoggedUserData(undefined);
+    localStorage.removeItem(Constants.Token);
+  };
+
   useEffect(() => {
-    const storedAuth = localStorage.getItem("isLoggedIn");
-    if (!storedAuth) {
+    const token = localStorage.getItem(Constants.Token);
+    if (!token) {
+      reset();
       navigate(RoutePath.Login);
       return;
     }
-    if (storedAuth === "true") {
-      setIsLoggedIn(true);
+    if (token) {
+      navigate(RoutePath.Todos);
     }
   }, []);
 
@@ -62,20 +67,43 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({
             : "Login attempt failed";
         showSnackbar(errorMessage as string, "error");
       }
+    } else {
+      showSnackbar("Invalid input", "error");
+    }
+  };
+
+  const register = async (username: string, password: string) => {
+    if (username && password) {
+      const response = await postService("/register", {
+        username,
+        password,
+      });
+      if (!response?.error) {
+        setLoggedUserData(response.data?.userData);
+        localStorage.setItem(Constants.Token, response.data?.token);
+        navigate(RoutePath.Todos);
+        showSnackbar("User has successfully logged in", "success");
+      } else {
+        const errorMessage =
+          typeof response?.error === "string"
+            ? response.error
+            : "Login attempt failed";
+        showSnackbar(errorMessage as string, "error");
+      }
+    } else {
+      showSnackbar("Invalid input", "error");
     }
   };
 
   const logout = () => {
-    setIsLoggedIn(false);
-    setLoggedUserData(undefined);
-    localStorage.removeItem("isLoggedIn");
+    reset();
     navigate(RoutePath.Login);
   };
 
   const value: AuthContextType = {
-    isLoggedIn,
     login,
     logout,
+    register,
     loggedUserData,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

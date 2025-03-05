@@ -5,12 +5,14 @@ interface TodoItemProps {
   todo: Todo;
   onDelete: (id: number) => void;
   onEdit: (todo: Todo) => void;
+  isDisabled: boolean;
 }
 
 export const TodoItem: React.FC<TodoItemProps> = ({
   todo,
   onDelete,
   onEdit,
+  isDisabled,
 }) => {
   return (
     <li className="mb-2 p-2 border rounded shadow-sm flex items-center justify-between">
@@ -29,13 +31,15 @@ export const TodoItem: React.FC<TodoItemProps> = ({
       <div>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-          onClick={() => onEdit(todo)}
+          onClick={() => !isDisabled && onEdit(todo)}
+          disabled={isDisabled}
         >
           Edit
         </button>
         <button
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => onDelete(todo.id)}
+          onClick={() => !isDisabled && onDelete(todo.id)}
+          disabled={isDisabled}
         >
           Delete
         </button>

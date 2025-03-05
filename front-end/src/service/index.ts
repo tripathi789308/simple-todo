@@ -28,7 +28,7 @@ const apiService = () => {
   const request = async (
     url: string,
     method = "GET",
-    data: object | null = null,
+    data: object | undefined = undefined,
     headers: object = {},
   ) => {
     try {
@@ -91,7 +91,7 @@ const apiService = () => {
     }
   };
   const getService = async (url: string, headers: object = {}) => {
-    return await request(url, "GET", null, headers);
+    return await request(url, "GET", undefined, headers);
   };
 
   const postService = async (
@@ -119,7 +119,7 @@ const apiService = () => {
   };
 
   const deleteService = async (url: string, headers: object = {}) => {
-    return await request(url, "DELETE", null, headers);
+    return await request(url, "DELETE", undefined, headers);
   };
 
   return { getService, postService, patchService, deleteService, putService };
