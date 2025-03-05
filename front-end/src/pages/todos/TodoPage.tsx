@@ -109,7 +109,7 @@ export default function TodoPage() {
     <div>
       <div className="mb-4 flex flex-row gap-4">
         <Button onClick={() => logout()}>Logout</Button>
-        {currentContent === ShowTodoContent.LIST && (
+        {currentContent !== ShowTodoContent.CREATE && (
           <Button onClick={() => setCurrentContent(ShowTodoContent.CREATE)}>
             Add Todo
           </Button>
