@@ -4,6 +4,13 @@
 
 This is a simple TODO application built with a modern technology stack. Users can create, manage, and mark tasks as complete. The application prioritizes a clean and intuitive user experience combined with robust backend security.
 
+## Demo Video 
+
+https://github.com/user-attachments/assets/fe8b1187-2859-4885-bbc8-f70637f7aba6
+
+
+
+
 **Key Features:**
 
 *   **Task Management:** Users can add new tasks, edit existing tasks, and delete tasks.
