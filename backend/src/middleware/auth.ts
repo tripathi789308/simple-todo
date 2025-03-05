@@ -18,7 +18,7 @@ export const jwtStrategy = new JwtStrategy(
       });
 
       if (user) {
-        return done(null, { userId: user.id, role: user.assignedRole });
+        return done(null, { userId: user.id });
       } else {
         return done(null, false);
       }

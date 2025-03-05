@@ -1,8 +1,15 @@
 import { Router } from "express";
-import passport from "passport";
 import todosRoutes from "./todos/index";
+import userController from "./authentication/user.controller";
+import passport from "passport";
 const router = Router();
 
-router.use("/todos", todosRoutes);
+router.post("/register", userController.register);
+router.post("/login", userController.login);
+router.use(
+  "/todos",
+  passport.authenticate("jwt", { session: false }),
+  todosRoutes,
+);
 
 export default router;

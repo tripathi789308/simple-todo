@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite" // Or postgresql, mysql, etc.
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -12,6 +12,7 @@ model User {
   username String @unique
   password String
   todos    Todo[]
+  groups   Group[]
 }
 
 

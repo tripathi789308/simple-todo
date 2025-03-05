@@ -19,7 +19,6 @@ async function main() {
 
   app.use(router);
 
-  // Example route to check DB connection
   app.get("/api/health", async (req, res) => {
     res.status(200).send("OK");
   });
