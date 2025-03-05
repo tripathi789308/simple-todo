@@ -38,7 +38,6 @@ async function loginUser(
   payload: LoginPayload,
 ): Promise<{ userData: UserData; token: string } | null> {
   const { username, password } = payload;
-  console.log("=> payload", payload);
   const user = await prisma.user.findUnique({
     where: { username },
   });

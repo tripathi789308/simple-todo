@@ -1,5 +1,5 @@
 import { Router } from "express";
-import todosRoutes from "./todos/index";
+import todosRoutes from "./todos/todos.routes";
 import userController from "./authentication/user.controller";
 import passport from "passport";
 const router = Router();
